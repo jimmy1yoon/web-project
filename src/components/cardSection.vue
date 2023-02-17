@@ -12,7 +12,7 @@
         <v-img
           class="align-end text-white"
           height="350"
-          src="content.imageURL"
+          :src=content.imageURL
           cover
         >
         </v-img>
@@ -44,14 +44,20 @@
 
 <script>
 
-import housedummies from '@/dummy/housedummy';
-
+// import housedummies from '@/dummy/housedummy';
+import axios from '@/axiosWrapper'
   export default {
     components: { 
     },
+    async mounted() {
+      const response = await axios.get('houses');
+      if (response.status === 200) {
+        this.housedummies = response.data;
+      }
+    },
     data() {
       return {
-        housedummies
+        housedummies: []
       }
     },
     methods: {
